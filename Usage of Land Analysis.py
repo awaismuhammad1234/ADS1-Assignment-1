@@ -45,3 +45,23 @@ data.groupby("Country Name").sum().sort_values("2020", ascending=False).iloc[:16
 plt.ylabel("Area")
 plt.title("Top 15 Countries with all Area")
 plt.show()
+
+
+# In[45]:
+
+
+top_count = list(data.groupby("Country Name").sum().sort_values("2020", ascending=False).iloc[:16, :].mean(axis=1).index)
+top_count.remove("Russian Federation")
+
+
+# In[74]:
+
+
+# Let's see how these countries uses land
+data = data[data["Country Name"].isin(top_count)]
+temp = data[data["Indicator Name"] == "Forest area (% of land area)"]
+temp.drop(["Country Code", "Indicator Name", "Indicator Code"], axis=1).set_index("Country Name").iloc[:, 30:-1].sort_values("2020", ascending=False).iloc[:5, :].T.plot(kind="line", figsize=(14, 5))
+plt.title("Forest Area Percentage")
+temp.drop(["Country Code", "Indicator Name", "Indicator Code"], axis=1).set_index("Country Name").iloc[:, 30:-1].sort_values("2020", ascending=False).iloc[5:10, :].T.plot(kind="line", figsize=(14, 5))
+plt.title("Forest Area Percentage")
+plt.show()
