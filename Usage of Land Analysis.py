@@ -65,3 +65,26 @@ plt.title("Forest Area Percentage")
 temp.drop(["Country Code", "Indicator Name", "Indicator Code"], axis=1).set_index("Country Name").iloc[:, 30:-1].sort_values("2020", ascending=False).iloc[5:10, :].T.plot(kind="line", figsize=(14, 5))
 plt.title("Forest Area Percentage")
 plt.show()
+
+
+# In[85]:
+
+
+cols = ['Forest area (% of land area)', 'Arable land (% of land area)', 'Agricultural land (% of land area)']
+data = data[data["Indicator Name"].isin(cols)]
+
+plt.figure(figsize=(17, 7))
+plt.subplot(1,2,1)
+temp_china = data[data["Country Name"] == "China"].set_index("Indicator Name")["2020"]
+temp_china.plot(kind="pie")
+plt.ylabel("")
+plt.title("China")
+plt.subplot(1,2,2)
+temp_ind = data[data["Country Name"] == "India"].set_index("Indicator Name")["2020"]
+temp_ind.plot(kind="pie")
+plt.ylabel("")
+plt.title("India")
+plt.show()
+
+
+# In[ ]:
